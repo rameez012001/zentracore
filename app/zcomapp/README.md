@@ -8,7 +8,7 @@
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/odata/v4/my/|
-|**Module Name**<br>zcomapp|
+|**Module Name**<br>zentracoreapp|
 |**Application Title**<br>Z Com|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
@@ -18,7 +18,7 @@
 |**Add Eslint configuration**<br>False|
 |**Main Entity**<br>Person|
 
-## zcomapp
+## zentracoreapp
 
 A app to test fiori
 
@@ -26,7 +26,7 @@ A app to test fiori
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated app, start your CAP project:  and navigate to the following location in your browser:
 
-http://localhost:4004/zcomapp/webapp/index.html
+http://localhost:4004/zentracoreapp/webapp/index.html
 
 #### Pre-requisites:
 

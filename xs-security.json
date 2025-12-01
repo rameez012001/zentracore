@@ -1,5 +1,5 @@
 {
-  "xsappname": "zcom",
+  "xsappname": "zentracore",
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "scopes": [

@@ -1,2 +1,2 @@
 
-using from './zcomapp/annotations';
+using from './zentracoreapp/annotations';

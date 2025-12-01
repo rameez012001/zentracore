@@ -5,7 +5,7 @@
     "serviceType": "Local CAP",
     "metadataFilename": "",
     "serviceUrl": "http://localhost:4004/odata/v4/my/",
-    "appName": "zcomapp",
+    "appName": "zentracoreapp",
     "appTitle": "Z Com",
     "appDescription": "A app to test fiori",
     "appNamespace": "",
@@ -24,6 +24,6 @@
         "value": "Person"
       }
     ],
-    "launchText": "To launch the generated app, start your CAP project:  and navigate to the following location in your browser:\n\nhttp://localhost:4004/zcomapp/webapp/index.html"
+    "launchText": "To launch the generated app, start your CAP project:  and navigate to the following location in your browser:\n\nhttp://localhost:4004/zentracoreapp/webapp/index.html"
   }
 }

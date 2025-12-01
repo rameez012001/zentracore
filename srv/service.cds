@@ -1,6 +1,6 @@
-namespace zcom.srv;
+namespace zentracore.srv;
 
-using { zcom.db as db } from '../db/schema';
+using { zentracore.db as db } from '../db/schema';
 // using { API_BUSINESS_PARTNER as a } from './external/API_BUSINESS_PARTNER';
 
 service MyService {

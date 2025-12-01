@@ -1,7 +1,7 @@
 {
 	"_version": "1.76.0",
 	"sap.app": {
-		"id": "zcomapp",
+		"id": "zentracoreapp",
 		"type": "application",
 		"i18n": {
 			"bundleUrl": "i18n/i18n.properties",
@@ -65,7 +65,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "zcomapp.i18n.i18n",
+					"bundleName": "zentracoreapp.i18n.i18n",
 					"supportedLocales": [
 						""
 					]

@@ -1,4 +1,4 @@
-using zcom.srv.MyService as service from '../../srv/service';
+using zentracore.srv.MyService as service from '../../srv/service';
 annotate service.Person with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',

@@ -63,7 +63,7 @@ module.exports = async function (srv) {
   //       CustomerName: row.CustomerName,
   //     };
 
-  //     await INSERT.into("zcom.db.BusinessStore").entries(temp);
+  //     await INSERT.into("zentracore.db.BusinessStore").entries(temp);
   //   }
   //   return "Data inserted successfully!";
   // });

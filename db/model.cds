@@ -1,4 +1,4 @@
-namespace zcom.orders;
+namespace zentracore.orders;
 
 
 entity Consignment  {

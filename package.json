@@ -1,5 +1,5 @@
 {
-  "name": "zcom",
+  "name": "zentracore",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
@@ -21,8 +21,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-zcomapp": "cds watch --open zcomapp/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "undeploy": "cf undeploy zcom --delete-services --delete-service-keys --delete-service-brokers",
+    "watch-zentracoreapp": "cds watch --open zentracoreapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy zentracore --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
@@ -31,7 +31,7 @@
     "app/*"
   ],
   "sapux": [
-    "app/zcomapp"
+    "app/zentracoreapp"
   ],
   "cds": {
     "requires": {

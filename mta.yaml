@@ -1,15 +1,15 @@
 _schema-version: 3.3.0
-ID: zcom
+ID: zentracore
 description: A simple CAP project.
 version: 1.0.0
 modules:
-  - name: zcom-srv
+  - name: zentracore-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: zcom-db
-      - name: zcom-auth
-      - name: zcom-destination-service
+      - name: zentracore-db
+      - name: zentracore-auth
+      - name: zentracore-destination-service
     provides:
       - name: srv-api
         properties:
@@ -19,30 +19,30 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
-  - name: zcom-db-deployer
+  - name: zentracore-db-deployer
     type: hdb
     path: gen/db
     requires:
-      - name: zcom-db
+      - name: zentracore-db
     parameters:
       buildpack: nodejs_buildpack
-  - name: zcom-app-content
+  - name: zentracore-app-content
     type: com.sap.application.content
     path: .
     requires:
-      - name: zcom-repo-host
+      - name: zentracore-repo-host
         parameters:
           content-target: true
     build-parameters:
       build-result: resources
       requires:
         - artifacts:
-            - zcomapp.zip
-          name: zcomapp
+            - zentracoreapp.zip
+          name: zentracoreapp
           target-path: resources/
-  - name: zcomapp
+  - name: zentracoreapp
     type: html5
-    path: app/zcomapp
+    path: app/zentracoreapp
     build-parameters:
       build-result: dist
       builder: custom
@@ -51,63 +51,63 @@ modules:
         - npm run build:cf
       supported-platforms:
         []
-  - name: zcom-destination-content
+  - name: zentracore-destination-content
     type: com.sap.application.content
     requires:
-      - name: zcom-destination-service
+      - name: zentracore-destination-service
         parameters:
           content-target: true
-      - name: zcom-repo-host
+      - name: zentracore-repo-host
         parameters:
           service-key:
-            name: zcom-repo-host-key
-      - name: zcom-auth
+            name: zentracore-repo-host-key
+      - name: zentracore-auth
         parameters:
           service-key:
-            name: zcom-auth-key
+            name: zentracore-auth-key
     parameters:
       content:
         instance:
           destinations:
-            - Name: zcomapprouter_zcom_repo_host
-              ServiceInstanceName: zcom-html5-service
-              ServiceKeyName: zcom-repo-host-key
-              sap.cloud.service: zcomapprouter
+            - Name: zentracoreapprouter_zentracore_repo_host
+              ServiceInstanceName: zentracore-html5-service
+              ServiceKeyName: zentracore-repo-host-key
+              sap.cloud.service: zentracoreapprouter
             - Authentication: OAuth2UserTokenExchange
-              Name: zcomapprouter_zcom_auth
-              ServiceInstanceName: zcom-auth
-              ServiceKeyName: zcom-auth-key
-              sap.cloud.service: zcomapprouter
+              Name: zentracoreapprouter_zentracore_auth
+              ServiceInstanceName: zentracore-auth
+              ServiceKeyName: zentracore-auth-key
+              sap.cloud.service: zentracoreapprouter
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
 resources:
-  - name: zcom-db
+  - name: zentracore-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
-  - name: zcom-repo-host
+  - name: zentracore-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: zcom-html5-service
+      service-name: zentracore-html5-service
       service-plan: app-host
-  - name: zcom-destination-service
+  - name: zentracore-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
         HTML5Runtime_enabled: true
         version: 1.0.0
       service: destination
-      service-name: zcom-destination-service
+      service-name: zentracore-destination-service
       service-plan: lite
-  - name: zcom-auth
+  - name: zentracore-auth
     type: org.cloudfoundry.managed-service
     parameters:
       config:
         tenant-mode: dedicated
-        xsappname: zcom-${org}-${space}
+        xsappname: zentracore-${org}-${space}
       path: ./xs-security.json
       service: xsuaa
       service-plan: application

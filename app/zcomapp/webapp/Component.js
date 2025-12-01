@@ -3,7 +3,7 @@ sap.ui.define(
     function (Component) {
         "use strict";
 
-        return Component.extend("zcomapp.Component", {
+        return Component.extend("zentracoreapp.Component", {
             metadata: {
                 manifest: "json"
             }

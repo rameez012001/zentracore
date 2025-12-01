@@ -1,4 +1,4 @@
-namespace zcom.db;
+namespace zentracore.db;
 using {cuid  } from '@sap/cds/common';
 
 entity Person {
