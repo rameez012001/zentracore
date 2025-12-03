@@ -1,32 +1,38 @@
-namespace zentracore.orders;
+namespace zentracore.db;
 
-
-entity Consignment  {
-    key id : Integer;
-    order: Association to Order;
-    status: String;
-    shipping_address: Association to Address;
-    consignment_entries: Association to ConsignmentEntries;
+entity Equipment {
+    key id           : Integer;
+        name         : String(80);
+        serialNumber : String(40);
+        category     : String(40);
+        location     : String(80);
+        status       : String(20);
 }
 
-entity ConsignmentEntries {
-    key id : Integer;
-    
+entity Technician {
+    key id       : Integer;
+        name     : String(80);
+        skill    : String(60);
+        workload : Integer;
+        phone    : String(30);
 }
 
-entity Order  {
-    key id: Integer;
-    total_price: Double;
-    line_items: Association to many OrderEntries on line_items.order = $self;
-    consignment: Association to many Consignment on consignment.order = $self;
+entity MaintenanceRequest {
+    key id          : Integer;
+        title       : String(120);
+        description : String(500);
+        priority    : String(20);
+        status      : String(20) default 'Open';
+        requestedAt : DateTime default current_timestamp;
+        closedAt    : DateTime;
+        equipment   : Association to Equipment;
+        assignedTo  : Association to Technician;
 }
 
-entity OrderEntries{
-    key id: Integer;
-    order: Association to Order;
-}
-
-entity Address {
-    key id: Integer;
-    
+entity Schedule {
+    key id             : Integer;
+        maintenanceReq : Association to MaintenanceRequest;
+        technician     : Association to Technician;
+        startAt        : DateTime;
+        endAt          : DateTime;
 }

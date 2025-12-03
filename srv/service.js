@@ -1,76 +1,79 @@
 const cds = require('@sap/cds');
-const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
-const { results } = require('@sap/cds/lib/utils/cds-utils');
 
 module.exports = async function (srv) {
-  const { Person } = srv.entities;
-  srv.before("postAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.one.from(Person).where({ id });
-    if (!person) req.error`id ${id} not found`
-  })
+    const { MaintenanceRequest, Technician, Equipment } = srv.entities;
+    const { selfAssign, fixed } = MaintenanceRequest.actions;
+    srv.after('CREATE', MaintenanceRequest, async (data, req) => {
+        if (data.equipment_id) {
+            await UPDATE('Equipment')
+                .set({ status: 'Inactive' })
+                .where({ id: data.equipment_id });
+        }
+    });
 
-  srv.on("postAge", async (req) => {
-    const { id, age } = req.data;
+    //   srv.after('UPDATE', MaintenanceRequest, async (data, req) => {
+    //     if (data.equipment_id) {
+    //       await UPDATE('Equipment')
+    //         .set({ status: 'Inactive' })
+    //         .where({ id: data.equipment_id });
+    //     }
+    //   });
 
-    await UPDATE(Person)
-      .set({ age: age })
-      .where({ id: id });
-    const person = await SELECT.from(Person).where({ id });
-    return person[0];
+    srv.on(selfAssign, async req => {
+        const { technician_id } = req.data;
+        const { id } = req.params[0];
+        console.log(`${id} and ${technician_id}`)
+        console.log('clicked')
+        await UPDATE(MaintenanceRequest)
+            .set({
+                assignedTo_id: technician_id,
+                status: 'InProgress'
+            })
+            .where({ id });
 
-  });
+        const tech = await SELECT.one.from(Technician)
+            .columns('workload')
+            .where({ id: technician_id });
 
-  srv.after("postAge", result => {
-    result.value = "hello printed";
-    return result;
-  });
+        const newLoad = (tech?.workload ?? 0) + 1;
 
-  srv.before("getAppropriateAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.from(Person).where({ id });
-    if (person.age < 18) req.error`age is below`
-    // return person;
-  });
+        await UPDATE(Technician)
+            .set({ workload: newLoad })
+            .where({ id: technician_id });
 
-  srv.on("getAppropriateAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.from(Person).where({ id });
-    return person;
-  });
+        return;
+    });
 
-  srv.on("doSomething", async (req) => {
-        alert('hello')
-        return true;
-    
-      });
+    //   Fixed
 
-  // const s4bpa = await cds.connect.to('API_BUSINESS_PARTNER')
+    srv.on(fixed, async req => {
+        const { id } = req.params[0];
 
-  // this.on('READ', 'Business', (req) => {
+        const reqRow = await SELECT.one.from(MaintenanceRequest)
+            .columns('assignedTo_id', 'equipment_id')
+            .where({ id });
 
-  //   return s4bpa.run(req.query)
-  // })
+        const technician_id = reqRow.assignedTo_id;
 
-  // srv.on("assignDL", async (req) => {
-  //   const con = await cds.connect.to("API_BUSINESS_PARTNER");
+        await UPDATE(MaintenanceRequest)
+            .set({
+                status: 'Completed'
+            })
+            .where({ id });
 
-  //   const result = await con.run(
-  //     SELECT.from("API_BUSINESS_PARTNER.A_Customer")
-  //   );
+        await UPDATE(Equipment)
+            .set({ status: 'Active' })
+            .where({ id: reqRow.equipment_id });
 
-  //   if (!result.length) return "NO objects found in external API";
+        const tech = await SELECT.one.from(Technician)
+            .columns('workload')
+            .where({ id: technician_id });
 
-  //   for (const row of result) {
+        const newLoad = (tech?.workload ?? 0) - 1;
 
-  //     const temp = {
-  //       CustomerFullName: row.CustomerFullName,
-  //       CustomerName: row.CustomerName,
-  //     };
-
-  //     await INSERT.into("zentracore.db.BusinessStore").entries(temp);
-  //   }
-  //   return "Data inserted successfully!";
-  // });
+        await UPDATE(Technician)
+            .set({ workload: newLoad })
+            .where({ id: technician_id });
+    });
 
 };

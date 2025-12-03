@@ -1,0 +1,6 @@
+id,name,serialNumber,category,location,status
+1,Hydraulic Press,HP-4482,Mechanical,Pune Plant,Active
+2,Conveyor Belt Line 3,CB-9921,MaterialHandling,Chennai Plant,Active
+3,CNC Machine A12,CNC-7710,Precision,Bengaluru Plant,Active
+4,Boiler Unit 5,BLR-5583,Thermal,Hyderabad Plant,Active
+5,Packaging Robot R2,PR-6632,Automation,Mumbai Plant,Active

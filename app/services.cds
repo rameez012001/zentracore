@@ -1,4 +1,6 @@
 
-using from './zentracoreapp/annotations';
+using from './zentra_equipment/annotations';
 
-action doSomething() returns Boolean;
+using from './maintenance_request/annotations';
+
+using from './zentra_technician/annotations';
