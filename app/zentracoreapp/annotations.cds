@@ -31,7 +31,7 @@ annotate service.Person with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'id',
+            Label : 'id', // this is displayed in the ui
             Value : id,
         },
         {
@@ -44,6 +44,11 @@ annotate service.Person with @(
             Label : 'age',
             Value : age,
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Label : 'zentra live',
+            Action : 'zentracore.srv.MyService.doSomething '
+        }
     ],
 );
 

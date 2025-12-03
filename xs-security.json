@@ -1,21 +1,19 @@
 {
-  "xsappname": "zentracore",
-  "tenant-mode": "dedicated",
-  "description": "Security profile of called application",
   "scopes": [
     {
-      "name": "uaa.user",
-      "description": "UAA"
+      "name": "$XSAPPNAME.Regional_Admins",
+      "description": "Regional_Admins"
     }
   ],
+  "attributes": [],
   "role-templates": [
     {
-      "name": "Token_Exchange",
-      "description": "UAA",
+      "name": "Regional_Admins",
+      "description": "generated",
       "scope-references": [
-        "uaa.user"
-      ]
+        "$XSAPPNAME.Regional_Admins"
+      ],
+      "attribute-references": []
     }
-  ],
-  "attributes": []
+  ]
 }

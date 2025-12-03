@@ -1,118 +1,8 @@
 _schema-version: 3.3.0
 ID: zentracore
-description: A simple CAP project.
 version: 1.0.0
-modules:
-  - name: zentracore-srv
-    type: nodejs
-    path: gen/srv
-    requires:
-      - name: zentracore-db
-      - name: zentracore-auth
-      - name: zentracore-destination-service
-    provides:
-      - name: srv-api
-        properties:
-          srv-url: ${default-url}
-    parameters:
-      buildpack: nodejs_buildpack
-      instances: 1
-    build-parameters:
-      builder: npm-ci
-  - name: zentracore-db-deployer
-    type: hdb
-    path: gen/db
-    requires:
-      - name: zentracore-db
-    parameters:
-      buildpack: nodejs_buildpack
-  - name: zentracore-app-content
-    type: com.sap.application.content
-    path: .
-    requires:
-      - name: zentracore-repo-host
-        parameters:
-          content-target: true
-    build-parameters:
-      build-result: resources
-      requires:
-        - artifacts:
-            - zentracoreapp.zip
-          name: zentracoreapp
-          target-path: resources/
-  - name: zentracoreapp
-    type: html5
-    path: app/zentracoreapp
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm install
-        - npm run build:cf
-      supported-platforms:
-        []
-  - name: zentracore-destination-content
-    type: com.sap.application.content
-    requires:
-      - name: zentracore-destination-service
-        parameters:
-          content-target: true
-      - name: zentracore-repo-host
-        parameters:
-          service-key:
-            name: zentracore-repo-host-key
-      - name: zentracore-auth
-        parameters:
-          service-key:
-            name: zentracore-auth-key
-    parameters:
-      content:
-        instance:
-          destinations:
-            - Name: zentracoreapprouter_zentracore_repo_host
-              ServiceInstanceName: zentracore-html5-service
-              ServiceKeyName: zentracore-repo-host-key
-              sap.cloud.service: zentracoreapprouter
-            - Authentication: OAuth2UserTokenExchange
-              Name: zentracoreapprouter_zentracore_auth
-              ServiceInstanceName: zentracore-auth
-              ServiceKeyName: zentracore-auth-key
-              sap.cloud.service: zentracoreapprouter
-          existing_destinations_policy: ignore
-    build-parameters:
-      no-source: true
-resources:
-  - name: zentracore-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-  - name: zentracore-repo-host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: html5-apps-repo
-      service-name: zentracore-html5-service
-      service-plan: app-host
-  - name: zentracore-destination-service
-    type: org.cloudfoundry.managed-service
-    parameters:
-      config:
-        HTML5Runtime_enabled: true
-        version: 1.0.0
-      service: destination
-      service-name: zentracore-destination-service
-      service-plan: lite
-  - name: zentracore-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      config:
-        tenant-mode: dedicated
-        xsappname: zentracore-${org}-${space}
-      path: ./xs-security.json
-      service: xsuaa
-      service-plan: application
+description: "A simple CAP project."
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
@@ -120,3 +10,48 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
+modules:
+  - name: zentracore-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: zentracore-auth
+      - name: zentracore-db
+
+  - name: zentracore-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: zentracore-db
+
+resources:
+  - name: zentracore-auth
+    type: com.sap.xs.uaa
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: zentracore-${org}-${space}
+        tenant-mode: dedicated
+        role-collections:
+          - name: 'Regional_Admins (zentracore ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Regional_Admins'
+  - name: zentracore-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

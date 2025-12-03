@@ -39,6 +39,12 @@ module.exports = async function (srv) {
     return person;
   });
 
+  srv.on("doSomething", async (req) => {
+        alert('hello')
+        return true;
+    
+      });
+
   // const s4bpa = await cds.connect.to('API_BUSINESS_PARTNER')
 
   // this.on('READ', 'Business', (req) => {
@@ -49,7 +55,6 @@ module.exports = async function (srv) {
   // srv.on("assignDL", async (req) => {
   //   const con = await cds.connect.to("API_BUSINESS_PARTNER");
 
-  //   // instead of req.query
   //   const result = await con.run(
   //     SELECT.from("API_BUSINESS_PARTNER.A_Customer")
   //   );
