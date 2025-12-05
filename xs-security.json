@@ -1,17 +1,29 @@
 {
   "scopes": [
     {
-      "name": "$XSAPPNAME.Regional_Admins",
-      "description": "Regional_Admins"
+      "name": "$XSAPPNAME.ZentraQAInstpector",
+      "description": "ZentraQAInstpector"
+    },
+    {
+      "name": "$XSAPPNAME.ZentraTechnician",
+      "description": "ZentraTechnician"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
-      "name": "Regional_Admins",
+      "name": "ZentraQAInstpector",
       "description": "generated",
       "scope-references": [
-        "$XSAPPNAME.Regional_Admins"
+        "$XSAPPNAME.ZentraQAInstpector"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "ZentraTechnician",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.ZentraTechnician"
       ],
       "attribute-references": []
     }

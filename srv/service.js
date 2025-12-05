@@ -11,14 +11,6 @@ module.exports = async function (srv) {
         }
     });
 
-    //   srv.after('UPDATE', MaintenanceRequest, async (data, req) => {
-    //     if (data.equipment_id) {
-    //       await UPDATE('Equipment')
-    //         .set({ status: 'Inactive' })
-    //         .where({ id: data.equipment_id });
-    //     }
-    //   });
-
     srv.on(selfAssign, async req => {
         const { technician_id } = req.data;
         const { id } = req.params[0];

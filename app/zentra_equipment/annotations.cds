@@ -43,6 +43,11 @@ annotate service.Equipment with @(
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
     ],
+    UI.HeaderInfo                : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : 'Equipment',
+        TypeNamePlural: 'Equipments'
+    },
     UI.LineItem : [
         {
             $Type : 'UI.DataField',

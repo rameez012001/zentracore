@@ -4,7 +4,7 @@ using {zentracore.db as model} from '../db/model';
 
 service MyService @(require: 'authenticated-user') {
 
-    entity Equipment as projection on model.Equipment;
+    entity Equipment  as projection on model.Equipment;
 
     entity MaintenanceRequest as
         projection on model.MaintenanceRequest {
@@ -16,8 +16,8 @@ service MyService @(require: 'authenticated-user') {
             action fixed();
         };
 
-    entity Schedule           as projection on model.Schedule;
-    entity Technician         as projection on model.Technician;
+    entity Schedule   as projection on model.Schedule;
+    entity Technician as projection on model.Technician;
 
 
 }
