@@ -1,0 +1,3 @@
+id,technicalobject,technicaltype,objecttype,maintenanceplant,location,plantsection,superiortechnicalobject,manufacturer,plannergroup,mainworkcenter,systemstatus,technicalidentificationnumber
+1,CNC Machine,EQUIPMENT,GENERIC,PL01,LOC01,SEC01,,ABC,PG1,WC1,UNDERMAINTENANCE,TID-001
+2,Laser Cutting Tool,TOOL,GENERIC,PL02,LOC02,SEC02,1,XYZ,PG2,WC2, ACTIVE ,TID-002

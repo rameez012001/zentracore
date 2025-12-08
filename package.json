@@ -27,7 +27,8 @@
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
     "watch-zentra_equipment": "cds watch --open zentraequipment/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maintenance_request": "cds watch --open maintenancerequest/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-zentra_technician": "cds watch --open zentratechnician/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-zentra_technician": "cds watch --open zentratechnician/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-raise_request": "cds watch --open raiserequest/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
@@ -37,7 +38,11 @@
     "app/zentracoreapp",
     "app/zentra_equipment",
     "app/maintenance_request",
-    "app/zentra_technician"
+    "app/zentra_technician",
+    "app/maintenance_request",
+    "app/raise_request",
+    "app/maintenance_request",
+    "app/maintenance_request"
   ],
   "cds": {
     "requires": {

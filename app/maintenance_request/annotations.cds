@@ -1,213 +1,131 @@
 using zentracore.srv.MyService as service from '../../srv/service';
-
 annotate service.MaintenanceRequest with @(
-    UI.FieldGroup #GeneratedGroup: {
-        $Type: 'UI.FieldGroupType',
+    UI.HeaderInfo : {
+        $Type  : 'UI.HeaderInfoType',
+        TypeName        : 'Maintenance Request',
+        TypeNamePlural  : 'Maintenance Requests',
+
+        Title : {
+            $Type : 'UI.DataField',
+            Value : title
+        },
+
+        Description : {
+            $Type : 'UI.DataField',
+            Value : TechnicalObject
+        }
+    },
+    UI.FieldGroup #GeneratedGroup : {
+        $Type : 'UI.FieldGroupType',
         Data : [
             {
-                $Type: 'UI.DataField',
-                Label: 'id',
-                Value: id,
+                $Type : 'UI.DataField',
+                Label : 'technicalobject_id',
+                Value : technicalobject_id,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'title',
-                Value: title,
+                $Type : 'UI.DataField',
+                Label : 'title',
+                Value : title,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'description',
-                Value: description,
+                $Type : 'UI.DataField',
+                Label : 'description',
+                Value : description,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'priority',
-                Value: priority,
+                $Type : 'UI.DataField',
+                Label : 'priority',
+                Value : priority,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'status',
-                Value: status,
+                $Type : 'UI.DataField',
+                Label : 'status',
+                Value : status,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'requestedAt',
-                Value: requestedAt,
-            },
-            {
-                $Type: 'UI.DataField',
-                Label: 'dueAt',
-                Value: dueAt,
-            },
-            {
-                $Type: 'UI.DataField',
-                Label: 'equipment_id',
-                Value: equipment_id,
-            },
-            {
-                $Type: 'UI.DataField',
-                Label: 'assignedTo_id',
-                Value: assignedTo_id,
+                $Type : 'UI.DataField',
+                Label : 'TechnicalObject',
+                Value : TechnicalObject,
             },
         ],
     },
-    UI.Facets                    : [
+    UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
-            ID    : 'GeneratedFacet1',
+            ID : 'GeneratedFacet1',
             Label : 'General Information',
-            Target: '@UI.FieldGroup#GeneratedGroup',
-
+            Target : '@UI.FieldGroup#GeneratedGroup',
         },
-        {
-            $Type : 'UI.ReferenceFacet',
-            ID    : 'GeneratedFacet2',
-            Label : 'Technician',
-            Target: 'assignedTo/@UI.LineItem',
-        }
     ],
-    UI.HeaderInfo                : {
-        $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Maintenance Request',
-        TypeNamePlural: 'Maintenance Requests'
-    },
-
-    UI.LineItem                  : [
+    UI.LineItem : [
         {
-            $Type: 'UI.DataField',
-            Label: 'id',
-            Value: id,
+            $Type : 'UI.DataField',
+            Label : 'title',
+            Value : title,
         },
         {
-            $Type: 'UI.DataField',
-            Label: 'title',
-            Value: title,
+            $Type : 'UI.DataField',
+            Label : 'description',
+            Value : description,
         },
         {
-            $Type: 'UI.DataField',
-            Label: 'description',
-            Value: description,
+            $Type : 'UI.DataField',
+            Label : 'priority',
+            Value : priority,
         },
         {
-            $Type: 'UI.DataField',
-            Label: 'priority',
-            Value: priority,
+            $Type : 'UI.DataField',
+            Label : 'status',
+            Value : status,
         },
         {
-            $Type: 'UI.DataField',
-            Label: 'status',
-            Value: status,
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'Technician',
-            Value: Technician,
+            $Type : 'UI.DataField',
+            Label : 'technicalobject_id',
+            Value : technicalobject_id,
         },
         {
             $Type : 'UI.DataFieldForAction',
-            Label : 'Self Assign',
-            Action: 'zentracore.srv.MyService.selfAssign',
+            Action : 'zentracore.srv.MyService.markAsRepaired',
+            Label : 'Mark as Repaired',
         },
+    ],
+    UI.Identification : [
         {
             $Type : 'UI.DataFieldForAction',
-            Label : 'Fixed',
-            Action: 'zentracore.srv.MyService.fixed',
-        }
+            Action : 'zentracore.srv.MyService.markAsRepaired',
+            Label : 'markAsRepaired',
+        },
     ],
-
 );
 
 annotate service.MaintenanceRequest with {
-    equipment @Common.ValueList: {
-        $Type         : 'Common.ValueListType',
-        CollectionPath: 'Equipment',
-        Parameters    : [
+    technicalobject @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'TechnicalObject',
+        Parameters : [
             {
-                $Type            : 'Common.ValueListParameterInOut',
-                LocalDataProperty: equipment_id,
-                ValueListProperty: 'id',
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : technicalobject_id,
+                ValueListProperty : 'id',
             },
             {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'name',
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'technicalobject',
             },
             {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'serialNumber',
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'technicaltype',
             },
             {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'category',
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'objecttype',
             },
             {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'location',
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'maintenanceplant',
             },
         ],
     }
 };
 
-annotate service.MaintenanceRequest with {
-    assignedTo @Common.ValueList: {
-        $Type         : 'Common.ValueListType',
-        CollectionPath: 'Technician',
-        Parameters    : [
-            {
-                $Type            : 'Common.ValueListParameterInOut',
-                LocalDataProperty: assignedTo_id,
-                ValueListProperty: 'id',
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'name',
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'skill',
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'workload',
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'phone',
-            },
-        ],
-    }
-};
-
-annotate service.Technician with @(
-    UI.HeaderInfo: {
-        $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Technician',
-        TypeNamePlural: 'Technicians'
-    },
-    UI.LineItem  : [
-        {
-            $Type: 'UI.DataField',
-            Label: 'id',
-            Value: id,
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'name',
-            Value: name,
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'skill',
-            Value: skill,
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'workload',
-            Value: workload,
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'phone',
-            Value: phone,
-        },
-    ],
-);

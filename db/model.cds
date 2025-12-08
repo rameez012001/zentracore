@@ -1,38 +1,45 @@
 namespace zentracore.db;
 
-entity Equipment {
-    key id           : Integer;
-        name         : String(80);
-        serialNumber : String(40);
-        category     : String(40);
-        location     : String(80);
-        status       : String(20);
+using {managed,cuid} from '@sap/cds/common';
+
+entity TechnicalObject {
+    key id                            : Integer;
+        technicalobject : String;
+        technicaltype                 : String @asset.range enum {
+            EQUIPMENT;
+            TOOLS;
+        };
+        objecttype                    : String;
+        maintenanceplant              : String;
+        location                      : String;
+        plantsection                  : String;
+        superiortechnicalobject       : String;
+        manufacturer                  : String;
+        plannergroup                  : String;
+        mainworkcenter                : String;
+        systemstatus                  : String @asset.range enum {
+            ACTIVE;
+            UNDERMAINTENANCE;
+            INACTIVE;
+        };
+        technicalidentificationnumber : String;
+        maintenancerequest            : Composition of MaintenanceRequest
+                                            on maintenancerequest.technicalobject = $self;
 }
 
-entity Technician {
-    key id       : Integer;
-        name     : String(80);
-        skill    : String(60);
-        workload : Integer;
-        phone    : String(30);
-}
-
-entity MaintenanceRequest {
-    key id          : Integer;
-        title       : String(120);
-        description : String(500);
-        priority    : String(20);
-        status      : String(20) default 'Open';
-        requestedAt : DateTime default current_timestamp;
-        closedAt    : DateTime;
-        equipment   : Association to Equipment;
-        assignedTo  : Association to Technician;
-}
-
-entity Schedule {
-    key id             : Integer;
-        maintenanceReq : Association to MaintenanceRequest;
-        technician     : Association to Technician;
-        startAt        : DateTime;
-        endAt          : DateTime;
+entity MaintenanceRequest : managed, cuid {
+    // key id              : Integer;
+        technicalobject : Association to TechnicalObject;
+        title           : String;
+        description     : String;
+        priority        : String @asset.range enum {
+            HIGH;
+            MID;
+            LOW;
+        };
+        status          : String @asset.range enum {
+            OPEN;
+            INPROGRESS;
+            FIXED;
+        } default 'OPEN';
 }

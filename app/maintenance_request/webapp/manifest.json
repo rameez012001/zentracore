@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.19.6",
-      "toolsId": "61954a2d-13d4-41fd-b65e-809d3e22d4e1"
+      "version": "1.20.0",
+      "toolsId": "0d2b7448-30a1-4858-b153-81e9af44f0d2"
     },
     "dataSources": {
       "mainService": {
@@ -116,7 +116,8 @@
                     "type": "ResponsiveTable"
                   }
                 }
-              }
+              },
+              "initialLoad": "Enabled"
             }
           }
         },

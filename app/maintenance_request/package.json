@@ -1,7 +1,7 @@
 {
   "name": "maintenance_request",
   "version": "0.0.1",
-  "description": "UI for requests with create, edit, assign technician, change status",
+  "description": "Maintent Request List Page",
   "keywords": [
     "ui5",
     "openui5",

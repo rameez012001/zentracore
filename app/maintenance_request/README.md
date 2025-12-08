@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Dec 03 2025 15:34:52 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Mon Dec 08 2025 05:53:49 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.19.6|
+|**App Generator Version**<br>1.20.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/odata/v4/my/|
 |**Module Name**<br>maintenance_request|
-|**Application Title**<br>Maintenance Request Page|
+|**Application Title**<br>Maintenance Request|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.143.0|
@@ -20,7 +20,7 @@
 
 ## maintenance_request
 
-UI for requests with create, edit, assign technician, change status
+Maintent Request List Page
 
 ### Starting the generated app
 
