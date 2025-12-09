@@ -89,12 +89,6 @@ annotate service.MaintenanceRequest with @(
                 Label : 'Technician',
                 Value : technician.name,
             },
-        ],
-    },
-
-    UI.FieldGroup #TechnicalObjectInfo : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
             {
                 $Type : 'UI.DataField',
                 Label : 'Technical Object',
@@ -106,23 +100,13 @@ annotate service.MaintenanceRequest with @(
                 Value : technicalobject.technicaltype,
             },
             {
-                $Type : 'UI.DataField',
-                Label : 'Object Type',
-                Value : technicalobject.objecttype,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'Maintenance Plant',
-                Value : technicalobject.maintenanceplant,
-            },
-            {
                 $Type                     : 'UI.DataField',
                 Label                     : 'System Status',
                 Value                     : technicalobject.systemstatus,
                 Criticality               : technicalobject.systemstatusCriticality,
                 CriticalityRepresentation : #WithIcon
             }
-        ]
+        ],
     },
 
     UI.Facets : [
@@ -137,12 +121,18 @@ annotate service.MaintenanceRequest with @(
                     Label  : 'General Information',
                     Target : '@UI.FieldGroup#GeneralInfo',
                 },
-                {
-                    $Type  : 'UI.ReferenceFacet',
-                    ID     : 'TechnicalObjectFacet',
-                    Label  : 'Technical Object Details',
-                    Target : '@UI.FieldGroup#TechnicalObjectInfo',
-                }
+                // {
+                //     $Type  : 'UI.ReferenceFacet',
+                //     ID     : 'TechnicalObjectFacet',
+                //     Label  : 'Technical Object Details',
+                //     Target : '@UI.FieldGroup#TechnicalObjectInfo',
+                // },
+                // {
+                //     $Type  : 'UI.ReferenceFacet',
+                //     ID     : 'TechnicanInfoFacet',
+                //     Label  : 'Technical Info Details',
+                //     Target : '@UI.FieldGroup#TechnicianInfo',
+                // }
             ]
         }
     ],
@@ -200,13 +190,6 @@ annotate service.MaintenanceRequest with @(
         },
     ],
 
-    UI.SelectionFields : [
-        title,
-        status,
-        priority,
-        technicalobject_id
-    ],
-
     UI.Identification : [
         {
             $Type       : 'UI.DataFieldForAction',
@@ -244,104 +227,3 @@ annotate service.MaintenanceRequest with @(
         Criticality : statusCriticality
     }
 );
-
-annotate service.MaintenanceRequest with {
-    title           @(
-        Common.Label        : 'Title',
-        Common.FieldControl : #Mandatory
-    );
-
-    description     @Common.Label : 'Description';
-
-    priority        @(
-        Common.Label                    : 'Priority',
-        Common.ValueListWithFixedValues : true,
-        Common.FieldControl             : #Mandatory
-    );
-
-    status          @(
-        Common.Label                    : 'Status',
-        Common.ValueListWithFixedValues : true,
-        Common.FieldControl             : #ReadOnly
-    );
-
-    technician      @(
-        Common.Label           : 'Technician',
-        Common.Text            : technician.name,
-        Common.TextArrangement : #TextFirst,
-        Common.ValueList       : {
-            Label          : 'Technicians',
-            CollectionPath : 'Technician',
-            Parameters     : [
-                {
-                    $Type             : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : technician_id,
-                    ValueListProperty : 'id',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'name',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'technicianUserName',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'workload',
-                },
-            ],
-        },
-        Common.FieldControl    : #Mandatory
-    );
-
-    technicalobject @(
-        Common.Label           : 'Technical Object',
-        Common.Text            : technicalobject.technicalobject,
-        Common.TextArrangement : #TextFirst,
-        Common.ValueList       : {
-            $Type          : 'Common.ValueListType',
-            CollectionPath : 'TechnicalObject',
-            Parameters     : [
-                {
-                    $Type             : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : technicalobject_id,
-                    ValueListProperty : 'id',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'technicalobject',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'technicaltype',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'objecttype',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'maintenanceplant',
-                },
-                {
-                    $Type             : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'systemstatus',
-                },
-            ],
-        },
-        Common.FieldControl    : #Mandatory
-    );
-};
-
-annotate service.TechnicalObject with @(
-    Common.Label           : 'Technical Objects',
-    UI.TextArrangement     : #TextFirst
-);
-
-annotate service.TechnicalObject with {
-    systemstatus @(
-        Common.Label                    : 'System Status',
-        Common.ValueListWithFixedValues : true
-    );
-};

@@ -1,0 +1,123 @@
+/* ============================================================
+   GLOBAL PAGE BACKGROUND
+   ============================================================ */
+html, body {
+    background-color: #f4f8ff !important;   /* soft blue background */
+}
+
+/* Dynamic Page background (List Report + Object Page) */
+.sapFDynamicPage {
+    background-color: #f4f8ff !important;
+}
+
+/* ============================================================
+   FILTER BAR STYLING
+   ============================================================ */
+.sapUiCompFilterBar {
+    background-color: #e6f0ff !important;   /* light blue */
+    border-bottom: 1px solid #b5c8e6 !important;
+}
+
+
+/* ============================================================
+   TABLE HEADER (List Report)
+   ============================================================ */
+.sapMListTblHdr {
+    background-color: #abe9d7 !important; /* dark navy blue */
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* Alternating row colors */
+.sapMListTblRow:nth-child(even) {
+    background-color: #f0f5ff !important;
+}
+
+.sapMListTblRow:nth-child(odd) {
+    background-color: #ffffff !important;
+}
+
+/* Row hover effect */
+.sapMListTblRow:hover {
+    background-color: #d9e6ff !important;
+}
+
+/* ============================================================
+   TABLE CELL TEXT
+   ============================================================ */
+.sapMListTblCell {
+    color: #abe9d7 !important; /* dark text */
+}
+
+/* Status Chips */
+.sapMObjStatusNone {
+    color: #0066cc !important;
+}
+
+.sapMObjStatusSuccess {
+    color: #1fa55b !important;
+}
+
+.sapMObjStatusError {
+    color: #d9534f !important;
+}
+
+.sapMObjStatusWarning {
+    color: #ff9900 !important;
+}
+
+/* ============================================================
+   OBJECT PAGE HEADER
+   ============================================================ */
+.sapFDynamicPageTitle {
+    background-color: #abe9d7 !important;
+    color: white !important;
+    border-bottom: 2px solid #abe9d7 !important;
+}
+
+.sapFDynamicPageTitle .sapMTitle {
+    color: white !important;
+}
+
+.sapFDynamicPageTitle .sapMObjStatus {
+    color: #ffea00 !important;
+}
+
+/* ============================================================
+   SECTION HEADERS (Object Page)
+   ============================================================ */
+.sapUxAPObjectPageSectionHeader {
+    background-color: #e6f0ff !important;
+    color: #abe9d7 !important;
+    font-weight: bold !important;
+    border-left: 4px solid #80a3c6 !important;
+}
+
+/* Block Labels */
+.sapUxAPObjectPageSubSection,
+.sapUxAPObjectPageSection {
+    background-color: #ffffff !important;
+}
+
+
+/* ============================================================
+   FOOTER BAR (Object Page)
+   ============================================================ */
+.sapFDynamicPageFooter {
+    background-color: #a1debb !important;
+    color: white !important;
+}
+
+/* ============================================================
+   INPUT FIELDS
+   ============================================================ */
+.sapMInputBase {
+    background-color: #ffffff !important;
+    border-radius: 5px !important;
+    border: 1px solid #aac4e6 !important;
+}
+
+.sapMInputBase:focus {
+    border-color: #7294b7 !important;
+    box-shadow: 0 0 5px rgba(120, 140, 161, 0.5) !important;
+}

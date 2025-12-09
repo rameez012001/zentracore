@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { CREATE } = require('@sap/cds/lib/ql/cds-ql');
 
 module.exports = async function (srv) {
     const { TechnicalObject, MaintenanceRequest, Technician } = srv.entities;
@@ -74,12 +75,30 @@ module.exports = async function (srv) {
         };
     });
 
+    srv.on('raisetTicket', async (req) => {
 
-    // srv.on(getPendingRequests, async req => {
-    //     return SELECT
-    //         .from(MaintenanceRequest)
-    //         .where({ status: ['OPEN', 'INPROGRESS'] });
-    // });
+        const { id } = req.params[0];       // TechnicalObject ID
+        const { title, desc, priority } = req.data;
+        console.log(id);
+        // Check if TechnicalObject exists and is inactive
+        const tech = await SELECT.one.from(TechnicalObject)
+            .where({ id });
 
+        if (!tech) return req.error(404, 'TechnicalObject not found');
 
+        if (tech.systemstatus !== 'INACTIVE') {
+            return req.error(400, 'Maintenance can only be raised for INACTIVE objects');
+        }
+
+        // Create new Maintenance Request linked to the TechnicalObject
+        const newReq = await INSERT.into(MaintenanceRequest).entries({
+            technicalobject_id: id,
+            title: title,
+            description: desc,
+            priority: priority,
+            status: 'OPEN'
+        });
+
+        return newReq;
+    });
 };

@@ -64,7 +64,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -93,20 +94,41 @@
       }
     },
     "resources": {
-      "css": []
+      "css": [{
+        "uri":"css/custom.css"
+      }]
     },
     "routing": {
-      "config": {},
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
       "routes": [
         {
           "pattern": ":?query:",
           "name": "MaintenanceRequestList",
-          "target": "MaintenanceRequestList"
+          "target": [
+            "MaintenanceRequestList"
+          ]
         },
         {
           "pattern": "MaintenanceRequest({key}):?query:",
           "name": "MaintenanceRequestObjectPage",
-          "target": "MaintenanceRequestObjectPage"
+          "target": [
+            "MaintenanceRequestList",
+            "MaintenanceRequestObjectPage"
+          ]
+        },
+        {
+          "name": "TechnicalObjectObjectPage",
+          "pattern": "TechnicalObject({TechnicalObjectKey}):?query:",
+          "target": [
+            "MaintenanceRequestList",
+            "TechnicalObjectObjectPage"
+          ]
         }
       ],
       "targets": {
@@ -123,6 +145,11 @@
                   "detail": {
                     "route": "MaintenanceRequestObjectPage"
                   }
+                },
+                "TechnicalObject": {
+                  "detail": {
+                    "route": "TechnicalObjectObjectPage"
+                  }
                 }
               },
               "controlConfiguration": {
@@ -132,9 +159,25 @@
                   }
                 }
               },
+              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView",
+              "views": {
+                "paths": [
+                  {
+                    "key": "tableView",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView"
+                  },
+                  {
+                    "key": "tableView1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView1",
+                    "entitySet": "TechnicalObject"
+                  }
+                ]
+              },
               "initialLoad": "Enabled"
             }
-          }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
         },
         "MaintenanceRequestObjectPage": {
           "type": "Component",
@@ -145,9 +188,31 @@
               "editableHeaderContent": false,
               "contextPath": "/MaintenanceRequest"
             }
-          }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/MaintenanceRequest({key})"
+        },
+        "TechnicalObjectObjectPage": {
+          "type": "Component",
+          "id": "TechnicalObjectObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/TechnicalObject",
+              "sectionLayout": "Tabs"
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/TechnicalObject({TechnicalObjectKey})"
         }
       }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
     }
   },
   "sap.fiori": {

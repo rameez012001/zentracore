@@ -3,6 +3,7 @@ namespace zentracore.srv;
 using {zentracore.db as model} from '../db/model';
 
 service MyService {
+    @odata.draft.enabled: true
     entity TechnicalObject    as projection on model.TechnicalObject {
         *,
         case systemstatus
@@ -11,6 +12,8 @@ service MyService {
             when 'INACTIVE' then 2
             else 0
         end as systemstatusCriticality : Integer
+    }actions{
+        action raisetTicket(title: String, priority: String, desc: String);
     };
 
     @odata.draft.enabled : true
@@ -19,6 +22,8 @@ service MyService {
             *,
             technicalobject.technicalobject as TechnicalObject : String,
             technician.name                 as Technician       : String,
+            technician.technicianUserName as username : String,
+            technician.workload as workload: String,
             case priority
                 when 'HIGH' then 1
                 when 'MID'  then 2

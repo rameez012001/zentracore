@@ -23,8 +23,9 @@ entity TechnicalObject {
             INACTIVE;
         };
         technicalidentificationnumber : String;
-        maintenancerequests            : Composition of many MaintenanceRequest
+        maintenancerequests            : Association to  many MaintenanceRequest
                                             on maintenancerequests.technicalobject = $self;
+        imageUrl        : String;                                        
 }
 
 entity MaintenanceRequest : managed, cuid {
