@@ -24,6 +24,21 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "MaintenanceRequest-manage": {
+          "semanticObject": "MaintenanceRequest",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "icon": "sap-icon://wrench"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -102,7 +117,7 @@
           "options": {
             "settings": {
               "contextPath": "/MaintenanceRequest",
-              "variantManagement": "Page",
+              "variantManagement": "None",
               "navigation": {
                 "MaintenanceRequest": {
                   "detail": {

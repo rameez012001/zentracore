@@ -1,11 +1,11 @@
 namespace zentracore.db;
 
-using {managed,cuid} from '@sap/cds/common';
+using {managed, cuid} from '@sap/cds/common';
 
 entity TechnicalObject {
     key id                            : Integer;
-        technicalobject : String;
-        technicaltype                 : String @asset.range enum {
+        technicalobject               : String;
+        technicaltype                 : String enum {
             EQUIPMENT;
             TOOLS;
         };
@@ -17,29 +17,35 @@ entity TechnicalObject {
         manufacturer                  : String;
         plannergroup                  : String;
         mainworkcenter                : String;
-        systemstatus                  : String @asset.range enum {
+        systemstatus                  : String enum {
             ACTIVE;
             UNDERMAINTENANCE;
             INACTIVE;
         };
         technicalidentificationnumber : String;
-        maintenancerequest            : Composition of MaintenanceRequest
-                                            on maintenancerequest.technicalobject = $self;
+        maintenancerequests            : Composition of many MaintenanceRequest
+                                            on maintenancerequests.technicalobject = $self;
 }
 
 entity MaintenanceRequest : managed, cuid {
-    // key id              : Integer;
         technicalobject : Association to TechnicalObject;
         title           : String;
         description     : String;
-        priority        : String @asset.range enum {
+        priority        : String enum {
             HIGH;
             MID;
             LOW;
         };
-        status          : String @asset.range enum {
+        status          : String enum {
             OPEN;
             INPROGRESS;
             FIXED;
         } default 'OPEN';
+        technician      : Association to Technician;
+}
+
+entity Technician : cuid {
+        name               : String;
+        technicianUserName : String;
+        workload           : Integer;
 }
