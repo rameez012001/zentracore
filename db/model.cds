@@ -45,6 +45,16 @@ entity MaintenanceRequest : managed, cuid {
         technician      : Association to Technician;
 }
 
+entity Priority{
+    key code: String;
+        name: String;
+}
+
+entity Status{
+    key code: String;
+        name: String;
+}
+
 entity Technician : cuid {
         name               : String;
         technicianUserName : String;

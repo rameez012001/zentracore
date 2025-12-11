@@ -43,4 +43,8 @@ service MyService {
         };
 
     entity Technician         as projection on model.Technician;
+
+    entity Priority as projection on model.Priority;
+
+    entity Status as projection on model.Status;
 }

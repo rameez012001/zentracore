@@ -33,35 +33,28 @@ module.exports = async function (srv) {
 
     srv.on('assignTechnician', async req => {
 
-        // ID comes from params → same as your markAsRepaired style
         const { ID } = req.params[0];
 
-        // username comes from body
         const { username } = req.data;
 
-        // 1. Get the Maintenance Request
         const reqRow = await SELECT.one.from(MaintenanceRequest)
             .where({ ID });
 
         if (!reqRow) return req.error(404, 'Maintenance Request not found');
 
-        // 2. Only assign when status = OPEN
         if (reqRow.status !== 'OPEN') {
             return req.error(400, 'Cannot assign technician unless status is OPEN');
         }
 
-        // 3. Get technician by username
         const techRow = await SELECT.one.from(Technician)
             .where({ technicianUserName: username });
 
         if (!techRow) return req.error(404, 'Technician not found');
 
-        // 4. Update workload (+1)
         await UPDATE(Technician)
             .set({ workload: techRow.workload + 1 })
             .where({ ID: techRow.ID });
 
-        // 5. Assign technician + change status to INPROGRESS
         await UPDATE(MaintenanceRequest)
             .set({
                 technician_ID: techRow.ID,
@@ -77,10 +70,10 @@ module.exports = async function (srv) {
 
     srv.on('raisetTicket', async (req) => {
 
-        const { id } = req.params[0];       // TechnicalObject ID
+        const { id } = req.params[0];   
         const { title, desc, priority } = req.data;
         console.log(id);
-        // Check if TechnicalObject exists and is inactive
+
         const tech = await SELECT.one.from(TechnicalObject)
             .where({ id });
 
@@ -90,7 +83,6 @@ module.exports = async function (srv) {
             return req.error(400, 'Maintenance can only be raised for INACTIVE objects');
         }
 
-        // Create new Maintenance Request linked to the TechnicalObject
         const newReq = await INSERT.into(MaintenanceRequest).entries({
             technicalobject_id: id,
             title: title,

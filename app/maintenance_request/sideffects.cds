@@ -3,10 +3,7 @@ using from './annotations';
 
 
 annotate service.MaintenanceRequest with actions {
-
-    // ======================================================
-    // MARK AS REPAIRED (Enabled only when status = 'INPROGRESS')
-    // ======================================================
+    
     markAsRepaired @(
         Core.OperationAvailable : {
             $edmJson : {
@@ -24,9 +21,6 @@ annotate service.MaintenanceRequest with actions {
     );
 
 
-    // ======================================================
-    // ASSIGN TECHNICIAN (Enabled only when status = 'OPEN')
-    // ======================================================
     assignTechnician @(
         Core.OperationAvailable : {
             $edmJson : {
@@ -87,10 +81,6 @@ annotate service.MaintenanceRequest with @(
             Label : 'Technician',
         },
     ],
-    Communication.Contact #contact : {
-        $Type : 'Communication.ContactType',
-        fn : Technician,
-    },
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
@@ -140,12 +130,17 @@ annotate service.MaintenanceRequest with @(
             @UI.Importance : #High,
         },
     ],
+    UI.SelectionFields : [
+        status,
+        priority,
+    ],
 );
 
 annotate service.TechnicalObject with @(
     UI.HeaderInfo : {
         TypeName : 'TechnicalObject',
         TypeNamePlural : 'TechnicalObjects',
+        ImageUrl: imageUrl,
         Title : {
             $Type : 'UI.DataField',
             Value : technicalobject,
@@ -165,8 +160,6 @@ annotate service.TechnicalObject with @(
             Target : 'maintenancerequests/@UI.LineItem#MaintenanceRequest',
         },
     ],
-    UI.LineItem #tableView : [
-    ],
     UI.SelectionPresentationVariant #tableView : {
         $Type : 'UI.SelectionPresentationVariantType',
         PresentationVariant : {
@@ -183,6 +176,11 @@ annotate service.TechnicalObject with @(
         Text : 'Table View TechnicalObject',
     },
     UI.LineItem #tableView1 : [
+        {
+            $Type : 'UI.DataField',
+            Value : imageUrl,
+            Label : 'imageUrl',
+        },
         {
             $Type : 'UI.DataField',
             Value : technicalobject,
@@ -278,4 +276,54 @@ annotate service.TechnicalObject with @(
     ],
     
 );
+
+annotate service.TechnicalObject with {
+    imageUrl @UI.IsImageURL : true
+};
+
+annotate service.MaintenanceRequest with {
+    status @(
+        Common.Label : 'status',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Status',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status,
+                    ValueListProperty : 'code',
+                },
+            ],
+            Label : 'Status',
+        },
+        Common.ValueListWithFixedValues : true,
+    )
+};
+
+annotate service.Status with {
+    code @Common.Text : name
+};
+
+annotate service.MaintenanceRequest with {
+    priority @(
+        Common.Label : 'priority',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Priority',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : priority,
+                    ValueListProperty : 'code',
+                },
+            ],
+            Label : 'Priority',
+        },
+        Common.ValueListWithFixedValues : true,
+    )
+};
+
+annotate service.Priority with {
+    code @Common.Text : name
+};
 
