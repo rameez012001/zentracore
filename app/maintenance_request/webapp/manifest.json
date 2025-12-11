@@ -168,7 +168,7 @@
                   },
                   {
                     "key": "tableView1",
-                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView",
                     "entitySet": "TechnicalObject"
                   }
                 ]
