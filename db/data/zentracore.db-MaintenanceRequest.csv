@@ -1,6 +1,0 @@
-technicalobject_id,title,description,priority,status,createdAt,createdBy,modifiedAt,modifiedBy
-1,CNC machine unresponsive,Control panel not powering up,HIGH,OPEN,2025-01-10T10:00:00Z,admin,2025-01-10T10:00:00Z,admin
-6,Conveyor belt misalignment,Belt drifting toward left roller,HIGH,OPEN,2025-01-10T10:00:00Z,admin,2025-01-10T10:00:00Z,admin
-8,Air compressor low pressure,Output pressure dropping below threshold,LOW,OPEN,2025-01-10T10:00:00Z,admin,2025-01-10T10:00:00Z,admin
-9,Grinding machine vibration issue,High vibration at spindle during operation,MID,OPEN,2025-01-10T10:00:00Z,admin,2025-01-10T10:00:00Z,admin
-11,Scanner not detecting packages,Laser sensor intermittently failing,HIGH,OPEN,2025-01-10T10:00:00Z,admin,2025-01-10T10:00:00Z,admin

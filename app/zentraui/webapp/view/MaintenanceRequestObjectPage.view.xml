@@ -1,0 +1,44 @@
+<mvc:View
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.uxap"
+		xmlns:layout="sap.ui.layout"
+		xmlns:m="sap.m"
+		height="100%"
+		controllerName="zentraui.controller.MaintenanceRequestObjectPage"
+		>
+
+	<ObjectPageLayout id="ObjectPageLayout" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageHeader id="headerForTest"
+							  objectTitle="{title}"
+							  objectSubtitle="{description}"
+							  >
+				<actions>
+					<ObjectPageHeaderActionButton icon="sap-icon://edit" text="edit" tooltip="edit"/>
+					<ObjectPageHeaderActionButton icon="sap-icon://refresh" text="{buttons>/text}" tooltip="refresh"/>
+					<ObjectPageHeaderActionButton icon="{buttons>/icon}"
+												  text="{path:'/text', model:'buttons', formatter:'.onFormat'}" tooltip="chain-link"/>
+				</actions>
+			</ObjectPageHeader>
+		</headerTitle>
+		<headerContent>
+			<layout:VerticalLayout>
+				<m:ObjectStatus title="Title" text="{title}"/>
+				<m:ObjectStatus title="Priority" text="{priority}"/>
+				<m:ObjectStatus title="Status" text="{status}"/>
+				<m:ObjectStatus title="Technician" text="{technician_ID}"/>
+			</layout:VerticalLayout>
+
+			<m:ObjectStatus text="{status}" state="Error"/>
+			<m:ObjectStatus title="Priority" text="{priority}" state="Warning"/>
+
+		</headerContent>
+	</ObjectPageLayout>
+
+	<!-- <m:Page title="Maintenance Request">
+        <m:Text text="{title}"/>
+        <m:Text text="{description}"/>
+        <m:Text text="{priority}"/>
+        <m:Text text="{status}"/>
+    </m:Page> -->
+</mvc:View>

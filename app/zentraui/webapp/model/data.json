@@ -1,0 +1,78 @@
+{
+  "TechnicalObject": [
+    {
+      "id": 1,
+      "technicalobject": "CNC Machine",
+      "technicaltype": "EQUIPMENT",
+      "objecttype": "GENERIC",
+      "maintenanceplant": "PL01",
+      "location": "LOC01",
+      "plantsection": "SEC01",
+      "superiortechnicalobject": null,
+      "manufacturer": "ABC",
+      "plannergroup": "PG1",
+      "mainworkcenter": "WC1",
+      "systemstatus": "ACTIVE",
+      "technicalidentificationnumber": "TID-001",
+      "imageUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.rJjqF7ltxgroUrdBq7yaTwHaGR%3Fpid%3DApi&f=1&ipt=51ea16b422cb7243ea4960a4d9c947d7795aa483c1c39e5da833c367db7e3c77&ipo=images"
+    },
+    {
+      "id": 2,
+      "technicalobject": "Laser Cutting Tool",
+      "technicaltype": "TOOLS",
+      "objecttype": "GENERIC",
+      "maintenanceplant": "PL02",
+      "location": "LOC02",
+      "plantsection": "SEC02",
+      "superiortechnicalobject": null,
+      "manufacturer": "XYZ",
+      "plannergroup": "PG2",
+      "mainworkcenter": "WC2",
+      "systemstatus": "INACTIVE",
+      "technicalidentificationnumber": "TID-002",
+      "imageUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.rJjqF7ltxgroUrdBq7yaTwHaGR%3Fpid%3DApi&f=1&ipt=51ea16b422cb7243ea4960a4d9c947d7795aa483c1c39e5da833c367db7e3c77&ipo=images"
+    }
+  ],
+  "Technician": [
+    {
+      "ID": "8f1c2a10-1a2b-4f1e-9b55-111111111111",
+      "name": "Ravi Kumar",
+      "technicianUserName": "rkumar",
+      "workload": 3
+    },
+    {
+      "ID": "9a2d3b20-2b3c-5a2f-8c66-222222222222",
+      "name": "Anita Sharma",
+      "technicianUserName": "asharma",
+      "workload": 1
+    }
+  ],
+  "MaintenanceRequest": [
+    {
+      "technicalobject_ID": 1,
+      "title": "Motor Overheating",
+      "description": "Temperature exceeds threshold during operation",
+      "priority": "HIGH",
+      "status": "OPEN",
+      "technician_ID": "8f1c2a10-1a2b-4f1e-9b55-111111111111"
+    },
+    {
+      "technicalobject_ID": 2,
+      "title": "Laser Alignment Issue",
+      "description": "Cut accuracy deviation observed",
+      "priority": "MID",
+      "status": "INPROGRESS",
+      "technician_ID": "9a2d3b20-2b3c-5a2f-8c66-222222222222"
+    }
+  ],
+  "Status": [
+    { "code": "OPEN", "name": "Open" },
+    { "code": "INPROGRESS", "name": "In Progress" },
+    { "code": "FIXED", "name": "Fixed" }
+  ],
+  "Priority": [
+    { "code": "HIGH", "name": "High Priority" },
+    { "code": "MID", "name": "Medium Priority" },
+    { "code": "LOW", "name": "Low Priority" }
+  ]
+}

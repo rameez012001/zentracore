@@ -2,8 +2,7 @@ namespace zentracore.db;
 
 using {managed, cuid} from '@sap/cds/common';
 
-entity TechnicalObject {
-    key id                            : Integer;
+entity TechnicalObject : cuid{
         technicalobject               : String;
         technicaltype                 : String enum {
             EQUIPMENT;

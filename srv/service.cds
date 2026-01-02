@@ -3,7 +3,6 @@ namespace zentracore.srv;
 using {zentracore.db as model} from '../db/model';
 
 service MyService {
-    @odata.draft.enabled: true
     entity TechnicalObject    as projection on model.TechnicalObject {
         *,
         case systemstatus
@@ -16,7 +15,7 @@ service MyService {
         action raisetTicket(title: String, priority: String, desc: String);
     };
 
-    @odata.draft.enabled : true
+
     entity MaintenanceRequest as
         projection on model.MaintenanceRequest {
             *,

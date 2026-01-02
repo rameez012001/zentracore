@@ -1,0 +1,1 @@
+using zentracore.srv.MyService as service from '../../srv/service';

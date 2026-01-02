@@ -1,0 +1,26 @@
+<mvc:View
+    class="sapUiSizeCompact"
+    controllerName="zentraui.controller.zentraview"
+    xmlns="sap.m"
+	xmlns:f="sap.f"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <Page showHeader="false">
+    <mvc:XMLView viewName="zentraui.view.Header" ></mvc:XMLView>
+		<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="Maintenance Request">
+					<mvc:XMLView viewName="zentraui.view.MaintenanceList"/>
+				</IconTabFilter>
+				<IconTabFilter text="Technical Object">
+					<mvc:XMLView viewName="zentraui.view.TechnicalObject" />
+				</IconTabFilter>
+				<IconTabFilter text="Technician">
+					<mvc:XMLView viewName="zentraui.view.Technician" />
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		
+	</Page>
+
+</mvc:View>

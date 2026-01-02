@@ -1,0 +1,40 @@
+
+
+<mvc:View
+		class="sapUiSizeCompact"
+		controllerName="zentraui.controller.MaintenanceList"
+		xmlns="sap.m"
+		xmlns:mvc="sap.ui.core.mvc"
+        >
+
+	<Table growing="true" growingThreshold="10"
+				items="{path : '/Technician',
+					parameters : {
+						$count : true,
+						$$getKeepAliveContext : true,
+						$$patchWithoutSideEffects : true
+					}}">
+			
+			<columns>
+				<Column hAlign="Center" width="9em">
+					<Text text="ID"/>
+				</Column>
+				<Column>
+					<Text text="Name"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Username"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="workload"/>
+				</Column>
+			</columns>
+			<ColumnListItem type="Navigation" press=".onListItemPressed">
+				<Text text="{ID}"/>
+				<Text text="{name}"/>
+				<Text text="{technicianUserName}"/>
+				<Text text="{workload}"/>
+			</ColumnListItem>
+		</Table>		
+
+</mvc:View>
