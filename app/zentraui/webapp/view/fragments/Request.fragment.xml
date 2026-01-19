@@ -1,0 +1,68 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="FormChange354"
+			editable="true">
+			<f:title>
+				<core:Title text="Maintenance Request" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="3"
+					labelSpanL="3"
+					labelSpanM="3"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="4"
+					emptySpanL="4"
+					emptySpanM="4"
+					emptySpanS="0"
+					columnsXL="1"
+					columnsL="1"
+					columnsM="1"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Title">
+							<f:fields>
+								<Input value="{title}" id="title"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Description">
+							<f:fields>
+								<Input value="{description}" id="description"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Priority">
+							<f:fields>
+								<Select id="priority" selectedKey="{priority}">
+									<items>
+										<core:Item text="LOW" key="LOW"/>
+										<core:Item text="MID" key="MID"/>
+										<core:Item text="HIGH" key="HIGH"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Status">
+							<f:fields>
+								<Select id="status" selectedKey="{status}">
+									<items>
+										<core:Item text="OPEN" key="OPEN"/>
+										<core:Item text="INPROGRESS" key="INPROGRESS"/>
+										<core:Item text="FIXED" key="FIXED"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

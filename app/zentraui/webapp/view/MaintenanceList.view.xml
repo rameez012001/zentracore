@@ -8,17 +8,14 @@
         >
 
 	<Table growing="true" growingThreshold="10"
-				items="{path : '/MaintenanceRequest',
-					parameters : {
-						$count : true,
-						$$getKeepAliveContext : true,
-						$$patchWithoutSideEffects : true
-					}}">
-			
+				items="{/MaintenanceRequest}" id="MaintenanceRequest">
+			<headerToolbar>
+				<Toolbar>				
+					<Button icon="sap-icon://add" id="create" press=".onCreateMaintenanceRequest"
+						text="Create" tooltip="Create Maintenance Request"/>
+				</Toolbar>
+			</headerToolbar>
 			<columns>
-				<Column hAlign="Center" width="9em">
-					<Text text="ID"/>
-				</Column>
 				<Column>
 					<Text text="Title"/>
 				</Column>
@@ -33,11 +30,18 @@
 				</Column>
 			</columns>
 			<ColumnListItem type="Navigation" press=".onListItemPressed">
-				<Text text="{technicalobject_ID}"/>
-				<Text text="{title}"/>
-				<Text text="{priority}"/>
-				<Text text="{status}"/>
+				<cells>
+					<Text text="{title}"/>
+					<ObjectStatus
+						text="{priority}"
+						state="{ path:'priority', formatter:'.formatPriorityState' }"/>
+					<ObjectStatus
+						text="{status}"
+						state="{ path:'status', formatter:'.formatStatusState' }"/>
+					<Text text="{technician}"/>
+				</cells>
 			</ColumnListItem>
+
 		</Table>		
 
 </mvc:View>

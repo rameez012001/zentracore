@@ -114,7 +114,7 @@
         },
         {
           "name": "MaintenanceObjectPage",
-          "pattern": "maintenancerequest/{path}",
+          "pattern": "maintenancerequest/{id}",
           "target": "MaintenanceObjectPage"
         }
       ],

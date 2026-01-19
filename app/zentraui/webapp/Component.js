@@ -17,12 +17,7 @@ sap.ui.define([
             
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
-
-            const oDataModel = new JSONModel(
-                sap.ui.require.toUrl("zentraui/model/data.json")
-            );
-            this.setModel(oDataModel); // default model
-
+        
             // enable routing
             this.getRouter().initialize();
         }

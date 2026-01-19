@@ -2,7 +2,7 @@
 
 <mvc:View
 		class="sapUiSizeCompact"
-		controllerName="zentraui.controller.MaintenanceList"
+		controllerName="zentraui.controller.TechnicalObjectPage"
 		xmlns="sap.m"
 		xmlns:mvc="sap.ui.core.mvc"
         >
