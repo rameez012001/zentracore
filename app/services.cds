@@ -1,4 +1,2 @@
 
-using from './zentracoreapp/annotations';
-
-action doSomething() returns Boolean;
+using from './zentraui/annotations';

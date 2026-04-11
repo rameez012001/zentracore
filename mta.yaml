@@ -34,10 +34,30 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: zentracore-db
+  - name: zentracore
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: zentracore-auth
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
 
 resources:
   - name: zentracore-auth
-    type: com.sap.xs.uaa
+    type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
@@ -45,11 +65,27 @@ resources:
       config:
         xsappname: zentracore-${org}-${space}
         tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+          redirect-uris:
+            - https://*~{app-api/app-uri}/**
         role-collections:
-          - name: 'Regional_Admins (zentracore ${org}-${space})'
+          - name: 'ZenViewer (zentracore ${org}-${space})'
             description: 'generated'
             role-template-references:
-              - '$XSAPPNAME.Regional_Admins'
+              - '$XSAPPNAME.ZenViewer'
+          - name: 'ZenManager (zentracore ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.ZenManager'
+          - name: 'ZenAdmin (zentracore ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.ZenAdmin'
+    requires:
+      - name: app-api
   - name: zentracore-db
     type: com.sap.xs.hdi-container
     parameters:

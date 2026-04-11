@@ -1,0 +1,6 @@
+ID,order_ID,productCode,productName,quantity,unitPrice,totalPrice
+2001,1001,P100,Laptop Bag,1,1500.00,1500.00
+2002,1001,P101,Wireless Mouse,2,500.00,1000.00
+2003,1002,P102,Mechanical Keyboard,1,3200.00,3200.00
+2004,1002,P103,USB-C Hub,2,500.00,1000.00
+2005,1003,P104,Notebook Stand,2,900.00,1800.00

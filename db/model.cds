@@ -1,32 +1,63 @@
 namespace zentracore.orders;
 
+using { managed } from '@sap/cds/common';
 
-entity Consignment  {
-    key id : Integer;
-    order: Association to Order;
-    status: String;
-    shipping_address: Association to Address;
-    consignment_entries: Association to ConsignmentEntries;
+entity Order : managed {
+    key ID           : Integer;
+    orderNumber      : String(30);
+    status           : String(20);
+    totalPrice       : Decimal(15,2);
+    currency         : String(3);
+
+    shippingAddress  : Association to Address;
+    billingAddress   : Association to Address;
+
+    items            : Composition of many OrderItem
+                         on items.order = $self;
+
+    consignments     : Composition of many Consignment
+                         on consignments.order = $self;
 }
 
-entity ConsignmentEntries {
-    key id : Integer;
-    
+entity OrderItem : managed {
+    key ID           : Integer;
+    order            : Association to Order;
+    productCode      : String(50);
+    productName      : String(100);
+    quantity         : Integer;
+    unitPrice        : Decimal(15,2);
+    totalPrice       : Decimal(15,2);
 }
 
-entity Order  {
-    key id: Integer;
-    total_price: Double;
-    line_items: Association to many OrderEntries on line_items.order = $self;
-    consignment: Association to many Consignment on consignment.order = $self;
+entity Consignment : managed {
+    key ID           : Integer;
+    order            : Association to Order;
+    consignmentCode  : String(30);
+    status           : String(20);
+    trackingNumber   : String(50);
+
+    shippingAddress  : Association to Address;
+
+    items            : Composition of many ConsignmentItem
+                         on items.consignment = $self;
 }
 
-entity OrderEntries{
-    key id: Integer;
-    order: Association to Order;
+entity ConsignmentItem : managed {
+    key ID           : Integer;
+    consignment      : Association to Consignment;
+    orderItem        : Association to OrderItem;
+    productCode      : String(50);
+    quantity         : Integer;
 }
 
-entity Address {
-    key id: Integer;
-    
+entity Address : managed {
+    key ID           : Integer;
+    fullName         : String(100);
+    line1            : String(255);
+    line2            : String(255);
+    city             : String(100);
+    region           : String(100);
+    postalCode       : String(20);
+    country          : String(3);
+    phone            : String(20);
 }

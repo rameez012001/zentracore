@@ -1,1 +1,6 @@
-id
+ID,fullName,line1,line2,city,region,postalCode,country,phone
+1,Rameez Khan,12 Anna Salai,Near LIC Building,Chennai,Tamil Nadu,600002,IN,9876543210
+2,Rameez Khan,45 OMR Road,Sholinganallur,Chennai,Tamil Nadu,600119,IN,9876543211
+3,John Mathew,22 Brigade Road,,Bengaluru,Karnataka,560001,IN,9876543212
+4,Priya Sharma,18 MG Road,,Hyderabad,Telangana,500081,IN,9876543213
+5,Arun Kumar,7 T Nagar Main Road,,Chennai,Tamil Nadu,600017,IN,9876543214

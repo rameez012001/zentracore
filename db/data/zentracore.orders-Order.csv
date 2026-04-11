@@ -1,1 +1,4 @@
-id,total_price
+ID,orderNumber,status,totalPrice,currency,shippingAddress_ID,billingAddress_ID
+1001,ORD-1001,CREATED,2500.00,INR,1,2
+1002,ORD-1002,CONFIRMED,4200.00,INR,3,3
+1003,ORD-1003,SHIPPED,1800.00,INR,4,4

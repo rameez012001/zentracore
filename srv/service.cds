@@ -1,25 +1,91 @@
-namespace zentracore.srv;
+using {zentracore.orders as db} from '../db/model';
 
-using { zentracore.db as db } from '../db/schema';
-// using { API_BUSINESS_PARTNER as a } from './external/API_BUSINESS_PARTNER';
+service OrderService @(path: '/orders') {
 
-service MyService @(require : 'authenticated-user'){
+    entity Orders @(restrict: [{
+            grant: 'READ',
+            to   : 'ZenViewer'
+        },
+        {
+            grant: [
+                'CREATE',
+                'UPDATE'
+            ],
+            to   : 'ZenManager'
+        },
+        {
+            grant: 'DELETE',
+            to   : 'ZenAdmin'
+        }
+    ]) as projection on db.Order;
 
-    entity Person as projection on db.Person;
-    entity Passport as projection on db.Passport;
-    action doSomething() returns Boolean;
-    
-    // entity Business as projection on a.A_Customer{
-    //     key Customer,
-    //     CustomerName,
-    //     CustomerFullName
-    // };
+    entity OrderItems @(restrict: [{
+            grant: 'READ',
+            to   : 'ZenViewer'
+        },
+        {
+            grant: [
+                'CREATE',
+                'UPDATE'
+            ],
+            to   : 'ZenManager'
+        },
+        {
+            grant: 'DELETE',
+            to   : 'ZenAdmin'
+        }
+    ]) as projection on db.OrderItem;
 
-    // entity BusinessStore as projection on db.BusinessStore;
+    entity Consignments @(restrict: [{
+            grant: 'READ',
+            to   : 'ZenViewer'
+        },
+        {
+            grant: [
+                'CREATE',
+                'UPDATE'
+            ],
+            to   : 'ZenManager'
+        },
+        {
+            grant: 'DELETE',
+            to   : 'ZenAdmin'
+        }
+    ]) as projection on db.Consignment;
 
+    entity ConsignmentItems @(restrict: [{
+            grant: 'READ',
+            to   : 'ZenViewer'
+        },
+        {
+            grant: [
+                'CREATE',
+                'UPDATE'
+            ],
+            to   : 'ZenManager'
+        },
+        {
+            grant: 'DELETE',
+            to   : 'ZenAdmin'
+        }
+    ]) as projection on db.ConsignmentItem;
 
-    // action assignDL() returns String;
+    entity Addresses @(restrict: [{
+            grant: 'READ',
+            to   : 'ZenViewer'
+        },
+        {
+            grant: [
+                'CREATE',
+                'UPDATE'
+            ],
+            to   : 'ZenManager'
+        },
+        {
+            grant: 'DELETE',
+            to   : 'ZenAdmin'
+        }
+    ]) as projection on db.Address;
 
-    action postAge(id: Int32, age: Int16) returns Person;
-    function getAppropriateAge(id:Int32) returns  Person;
+    action getHome(id: String);
 }

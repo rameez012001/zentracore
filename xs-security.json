@@ -1,19 +1,52 @@
 {
+  "xsappname": "zentra_xsuaa",
+  "tenant-mode": "dedicated",
   "scopes": [
     {
-      "name": "$XSAPPNAME.Regional_Admins",
-      "description": "Regional_Admins"
+      "name": "$XSAPPNAME.ZenViewer",
+      "description": "ZenViewer"
+    },
+    {
+      "name": "$XSAPPNAME.ZenManager",
+      "description": "ZenManager"
+    },
+    {
+      "name": "$XSAPPNAME.ZenAdmin",
+      "description": "ZenAdmin"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
-      "name": "Regional_Admins",
+      "name": "ZenViewer",
       "description": "generated",
       "scope-references": [
-        "$XSAPPNAME.Regional_Admins"
+        "$XSAPPNAME.ZenViewer"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "ZenManager",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.ZenManager"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "ZenAdmin",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.ZenAdmin"
       ],
       "attribute-references": []
     }
-  ]
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "http://localhost:5000/**",
+      "https://*.cfapps.us10.hana.ondemand.com/**",
+      "https://*.applicationstudio.cloud.sap/**"
+    ]
+  }
 }
