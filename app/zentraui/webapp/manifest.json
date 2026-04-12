@@ -76,12 +76,15 @@
         }
       },
       "": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
         "dataSource": "mainService",
         "preload": true,
         "settings": {
+          "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
+          "earlyRequests": true,
+          "updateGroupId": "maintenanceBatch"
         }
       }
     },

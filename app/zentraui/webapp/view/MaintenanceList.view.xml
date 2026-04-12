@@ -8,16 +8,22 @@
         >
 
 	<Table growing="true" growingThreshold="10"
-				items="{/MaintenanceRequest}" id="MaintenanceRequest">
+				items="{
+        path: '/MaintenanceRequest',
+        parameters: { $$updateGroupId : 'maintenanceBatch' }
+    }" id="MaintenanceRequest">
 			<headerToolbar>
 				<Toolbar>				
 					<Button icon="sap-icon://add" id="create" press=".onCreateMaintenanceRequest"
 						text="Create" tooltip="Create Maintenance Request"/>
+						<Button icon="sap-icon://add" id="onSaveReq" press=".onSaveReq"
+						text="Save" tooltip="Save"/>
 				</Toolbar>
 			</headerToolbar>
 			<columns>
 				<Column>
-					<Text text="Title"/>
+					<!-- <Text text="Title"/> -->
+					<Label text="Title" tooltip="Title" />
 				</Column>
 				<Column hAlign="Center">
 					<Text text="Priority"/>
@@ -31,14 +37,14 @@
 			</columns>
 			<ColumnListItem type="Navigation" press=".onListItemPressed">
 				<cells>
-					<Text text="{title}"/>
+					<Input textFormatMode="KeyValue" value="{title}"/>
 					<ObjectStatus
 						text="{priority}"
 						state="{ path:'priority', formatter:'.formatPriorityState' }"/>
 					<ObjectStatus
 						text="{status}"
 						state="{ path:'status', formatter:'.formatStatusState' }"/>
-					<Text text="{technician}"/>
+					<Text text="{technician.name}"/>
 				</cells>
 			</ColumnListItem>
 

@@ -1,8 +1,6 @@
-
-
 <mvc:View
 		class="sapUiSizeCompact"
-		controllerName="zentraui.controller.TechnicianObjectPage"
+		controllerName="zentraui.controller.Technician"
 		xmlns="sap.m"
 		xmlns:mvc="sap.ui.core.mvc"
         >
@@ -14,12 +12,14 @@
 						$$getKeepAliveContext : true,
 						$$patchWithoutSideEffects : true
 					}}">
-			
+			<headerToolbar>
+				<Toolbar>				
+					<Button icon="sap-icon://add" id="createRowTechnician" press=".onCreateRowTechnician"
+						text="Create" tooltip="Add Technician"/>
+				</Toolbar>
+			</headerToolbar>
 			<columns>
-				<Column hAlign="Center" width="9em">
-					<Text text="ID"/>
-				</Column>
-				<Column>
+				<Column hAlign="Center">
 					<Text text="Name"/>
 				</Column>
 				<Column hAlign="Center">
@@ -30,10 +30,10 @@
 				</Column>
 			</columns>
 			<ColumnListItem type="Navigation" press=".onListItemPressed">
-				<Text text="{ID}"/>
-				<Text text="{name}"/>
-				<Text text="{technicianUserName}"/>
-				<Text text="{workload}"/>
+				<!-- <Text text="{name}"/> -->
+				<Input textFormatMode="KeyValue" value="{name}"/>
+				<Input textFormatMode="KeyValue" value="{technicianUserName}"/>
+				<Input textFormatMode="KeyValue" value="{workload}"/>
 			</ColumnListItem>
 		</Table>		
 

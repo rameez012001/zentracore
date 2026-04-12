@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@sap/approuter": "^21.2.1"
+  }
+}

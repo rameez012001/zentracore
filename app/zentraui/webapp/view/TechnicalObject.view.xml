@@ -22,9 +22,9 @@
 				<Column>
 					<Text text="Equipment Name"/>
 				</Column>
-				<Column>
+				<!-- <Column>
 					<Text text="Maintenance Plant"/>
-				</Column>
+				</Column> -->
 				<Column>
 					<Text text="Manufacturer"/>
 				</Column>
@@ -39,7 +39,7 @@
                     </layoutData>
 			    </Image>
 				<Text text="{technicalobject}"/>
-				<Text text="{maintenanceplant}"/>
+				<!-- <Text text="{maintenanceplant}"/> -->
 				<Text text="{manufacturer}"/>
                 <Text text="{systemstatus}"/>
 			</ColumnListItem>

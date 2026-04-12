@@ -1,7 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
-], (Controller, JSONModel) => {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/ColumnListItem",
+    "sap/m/Input"
+], (Controller, JSONModel, ColumnListItem, Input) => {
     "use strict";
 
     return Controller.extend("zentraui.controller.MaintenanceList", {
@@ -11,6 +13,11 @@ sap.ui.define([
                 iMessages: 0
             });
             this.getView().setModel(this.oUIModel, "MaintenanceRequest");
+        },
+        onSaveReq: function () {
+            this.getView()
+                .getModel()
+                .submitBatch("maintenanceBatch");
         },
         onListItemPressed: function (oEvent) {
             const oItem = oEvent.getSource();
@@ -23,19 +30,17 @@ sap.ui.define([
 
         },
         onCreateMaintenanceRequest: function (oEvent) {
-            var oContext = this.byId("MaintenanceRequest").getBinding("items").create({
-                LifecycleStatusDesc: "New"
-            }),
-                that = this;
+            const oTable = this.byId("MaintenanceRequest");
 
-            oContext.created().then(function () {
-                MessageToast.show("Maintenance Request created: " + oContext.getProperty("ID"));
-                oContext.setKeepAlive(true, undefined, true);
-            }, function () {
-                // creation canceled
-                UIComponent.getRouterFor(that).navTo("MaintenanceObjectPage");
+            const oBinding = oTable.getBinding("items");
+
+            oBinding.create({
+                title: "",
+                description: "",
+                priority: "LOW",
+                status: "OPEN"
             });
-            this.selectSalesOrder(oContext);
+
         },
 
         formatStatusState: function (sStatus) {
@@ -63,19 +68,19 @@ sap.ui.define([
             }
         },
         onBeforeExport: function (oEvt) {
-			const mExcelSettings = oEvt.getParameter("exportSettings");
-			// GW export
-			if (mExcelSettings.url) {
-				return;
-			}
-			// For UI5 Client Export --> The settings contains sap.ui.export.SpreadSheet relevant settings that be used to modify the output of excel
+            const mExcelSettings = oEvt.getParameter("exportSettings");
+            // GW export
+            if (mExcelSettings.url) {
+                return;
+            }
+            // For UI5 Client Export --> The settings contains sap.ui.export.SpreadSheet relevant settings that be used to modify the output of excel
 
-			// Disable Worker as Mockserver is used in Demokit sample --> Do not use this for real applications!
-			mExcelSettings.worker = false;
-		},
-		onExit: function () {
-			this._oMockServer.destroy();
-		}
+            // Disable Worker as Mockserver is used in Demokit sample --> Do not use this for real applications!
+            mExcelSettings.worker = false;
+        },
+        onExit: function () {
+            this._oMockServer.destroy();
+        }
 
 
     });
