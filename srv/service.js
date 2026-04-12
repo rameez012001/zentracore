@@ -1,76 +1,29 @@
-const cds = require('@sap/cds');
-const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
-const { results } = require('@sap/cds/lib/utils/cds-utils');
+const cds = require("@sap/cds");
 
 module.exports = async function (srv) {
-  const { Person } = srv.entities;
-  srv.before("postAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.one.from(Person).where({ id });
-    if (!person) req.error`id ${id} not found`
-  })
+  const { Orders, OrderItem, Consignment, ConsignmentItem, Address } =
+    srv.entities;
 
-  srv.on("postAge", async (req) => {
-    const { id, age } = req.data;
-
-    await UPDATE(Person)
-      .set({ age: age })
-      .where({ id: id });
-    const person = await SELECT.from(Person).where({ id });
-    return person[0];
-
-  });
-
-  srv.after("postAge", result => {
-    result.value = "hello printed";
-    return result;
-  });
-
-  srv.before("getAppropriateAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.from(Person).where({ id });
-    if (person.age < 18) req.error`age is below`
-    // return person;
-  });
-
-  srv.on("getAppropriateAge", async (req) => {
-    const { id } = req.data;
-    const person = await SELECT.from(Person).where({ id });
-    return person;
-  });
-
-  srv.on("doSomething", async (req) => {
-        alert('hello')
-        return true;
+  srv.before("CREATE", Orders, async (req) => {
+    if (req.data.shippingAddress_ID==null || req.data.billingAddress_ID==null) {
+      req.reject(
+        400,
+        "Only one shippingAddress and one billingAddress are allowed",
+      );
+    }
+    if (req.data.items?.length) {
+      req.data.items = req.data.items.map((obj, index) => ({
+        ID: obj.ID,
+        productCode: obj.productCode,
+        productName: obj.productName,
+        quantity: obj.quantity || 1,
+        unitPrice: obj.unitPrice || 0.0,
+        totalPrice: (obj.quantity || 1) * (obj.unitPrice || 0.0),
+      }));
+      req.data.totalPrice = req.data.items.reduce((sum,obj)=>sum+obj.totalPrice,0)
+    }else{
+      req.reject(400, "Add Products");
+    }
     
-      });
-
-  // const s4bpa = await cds.connect.to('API_BUSINESS_PARTNER')
-
-  // this.on('READ', 'Business', (req) => {
-
-  //   return s4bpa.run(req.query)
-  // })
-
-  // srv.on("assignDL", async (req) => {
-  //   const con = await cds.connect.to("API_BUSINESS_PARTNER");
-
-  //   const result = await con.run(
-  //     SELECT.from("API_BUSINESS_PARTNER.A_Customer")
-  //   );
-
-  //   if (!result.length) return "NO objects found in external API";
-
-  //   for (const row of result) {
-
-  //     const temp = {
-  //       CustomerFullName: row.CustomerFullName,
-  //       CustomerName: row.CustomerName,
-  //     };
-
-  //     await INSERT.into("zentracore.db.BusinessStore").entries(temp);
-  //   }
-  //   return "Data inserted successfully!";
-  // });
-
+  });
 };

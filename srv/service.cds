@@ -87,5 +87,4 @@ service OrderService @(path: '/orders') {
         }
     ]) as projection on db.Address;
 
-    action getHome(id: String);
 }
