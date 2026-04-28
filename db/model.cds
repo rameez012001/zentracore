@@ -3,14 +3,14 @@ namespace zentracore.orders;
 using { managed } from '@sap/cds/common';
 
 entity Order : managed {
-    key ID           : Integer;
+    key ID           : UUID;
     orderNumber      : String(30);
     status           : String(20);
     totalPrice       : Decimal(15,2);
     currency         : String(3);
 
-    shippingAddress  : Association to Address;
-    billingAddress   : Association to Address;
+    shippingAddress  : Composition of  Address;
+    billingAddress   : Composition of  Address;
 
     items            : Composition of many OrderItem
                          on items.order = $self;
@@ -20,7 +20,7 @@ entity Order : managed {
 }
 
 entity OrderItem : managed {
-    key ID           : Integer;
+    key ID           : UUID;
     order            : Association to Order;
     productCode      : String(50);
     productName      : String(100);
@@ -30,7 +30,7 @@ entity OrderItem : managed {
 }
 
 entity Consignment : managed {
-    key ID           : Integer;
+    key ID           : UUID;
     order            : Association to Order;
     consignmentCode  : String(30);
     status           : String(20);
@@ -43,7 +43,7 @@ entity Consignment : managed {
 }
 
 entity ConsignmentItem : managed {
-    key ID           : Integer;
+    key ID           : UUID;
     consignment      : Association to Consignment;
     orderItem        : Association to OrderItem;
     productCode      : String(50);
@@ -51,13 +51,13 @@ entity ConsignmentItem : managed {
 }
 
 entity Address : managed {
-    key ID           : Integer;
+    key ID           : UUID;
     fullName         : String(100);
     line1            : String(255);
     line2            : String(255);
     city             : String(100);
     region           : String(100);
     postalCode       : String(20);
-    country          : String(3);
+    country          : String(20);
     phone            : String(20);
 }

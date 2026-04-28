@@ -26,4 +26,86 @@ module.exports = async function (srv) {
     }
     
   });
+
+  srv.on("createConsignment", async (req) => {
+    const tx = cds.tx;
+
+    // 1. Fetch all orders with items
+    const orders = await tx.run(
+      SELECT.from(Orders).columns(
+        "ID",
+        "customerName",
+        "status",
+        "totalPrice",
+        { items: ["ID", "productCode", "productName", "quantity"] }
+      )
+    );
+
+    if (!orders.length) {
+      return {
+        message: "No orders found",
+        totalOrders: 0,
+        createdCount: 0,
+        skippedCount: 0,
+      };
+    }
+
+    let createdCount = 0;
+    let skippedCount = 0;
+
+    for (const order of orders) {
+      // 2. Skip if consignment already exists for this order
+      const existingConsignment = await tx.run(
+        SELECT.one.from(Consignment).where({ order_ID: order.ID })
+      );
+
+      if (existingConsignment) {
+        skippedCount++;
+        continue;
+      }
+
+      // 3. Create consignment header
+      const consignmentId = cds.utils.uuid();
+
+      await tx.run(
+        INSERT.into(Consignment).entries({
+          ID: consignmentId,
+          order_ID: order.ID,
+          status: "CREATED",
+        })
+      );
+
+      // 4. Create consignment items from order items
+      if (order.items?.length) {
+        const consignmentItems = order.items.map((item) => ({
+          ID: cds.utils.uuid(),
+          consignment_ID: consignmentId,
+          productCode: item.productCode,
+          productName: item.productName,
+          quantity: item.quantity,
+        }));
+
+        await tx.run(
+          INSERT.into(ConsignmentItem).entries(consignmentItems)
+        );
+      }
+
+      // 5. Optional: update order status
+      await tx.run(
+        UPDATE(Orders)
+          .set({ status: "CONSIGNMENT_CREATED" })
+          .where({ ID: order.ID })
+      );
+
+      createdCount++;
+    }
+
+    return {
+      message: "Consignment creation completed",
+      totalOrders: orders.length,
+      createdCount,
+      skippedCount,
+    };
+  });
+
 };
