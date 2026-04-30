@@ -1,7 +1,7 @@
 using {zentracore.orders as db} from '../db/model';
 
 service OrderService @(path: '/orders') {
-
+    @odata.draft.enabled
     entity Orders as projection on db.Order;
 
     entity OrderItems as projection on db.OrderItem;
@@ -13,5 +13,4 @@ service OrderService @(path: '/orders') {
     entity Addresses as projection on db.Address;
 
     action createConsignment();
-
 }

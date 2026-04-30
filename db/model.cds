@@ -9,8 +9,8 @@ entity Order : managed {
     totalPrice       : Decimal(15,2);
     currency         : String(3);
 
-    shippingAddress  : Composition of  Address;
-    billingAddress   : Composition of  Address;
+    shippingAddress  : Composition of one Address;
+    billingAddress   : Composition of one Address;
 
     items            : Composition of many OrderItem
                          on items.order = $self;

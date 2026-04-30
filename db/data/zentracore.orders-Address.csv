@@ -1,0 +1,7 @@
+ID,fullName,line1,line2,city,region,postalCode,country,phone
+aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaa1,John Doe,123 Main St,Apt 4B,New York,NY,10001,US,1234567890
+bbbbbbb1-bbbb-bbbb-bbbb-bbbbbbbbbbb1,John Doe,456 Billing Ave,Suite 12,New York,NY,10002,US,1234567891
+aaaaaaa2-aaaa-aaaa-aaaa-aaaaaaaaaaa2,Alice Smith,78 Market Road,,Berlin,Berlin,10115,DE,491234567890
+bbbbbbb2-bbbb-bbbb-bbbb-bbbbbbbbbbb2,Alice Smith,99 Finance Str,Floor 2,Berlin,Berlin,10117,DE,491234567891
+ccccccc1-cccc-cccc-cccc-ccccccccccc1,Warehouse Team,500 Dispatch Hub,,New York,NY,10010,US,1234500000
+ccccccc2-cccc-cccc-cccc-ccccccccccc2,Logistics Center,700 Shipping Lane,,Berlin,Berlin,10118,DE,491230000000
